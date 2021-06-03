@@ -10,7 +10,7 @@ class Car extends Model
 
         'name',
         'model',
-        'kw',
+        'kW',
         'brand_id'
     ];
 
