@@ -25,7 +25,8 @@ class TestController extends Controller
     public function createCar(){
 
         $brands=Brand::all();
-        return view('pages.createCar',compact('brands'));
+        $pilots=Pilot::all();
+        return view('pages.createCar',compact('brands','pilots'));
     }
 
     public function storeCar(Request $request){
@@ -39,6 +40,10 @@ class TestController extends Controller
         $brand = Brand::findOrFail($request -> get('brand_id'));
         $car=Car::make($validate);
         $car->brand()->associate($brand);
+        $car->save();
+        
+        $pilots = Pilot::findOrFail($request -> get('pilots_id'));
+        $car->pilots()->attach($pilots);
         $car->save();
 
         return redirect() -> route('home');
